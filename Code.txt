@@ -1,6 +1,6 @@
 
 
-------------- Five Players with Most Man Of the Match awards -----------------------------------
+// ------------- Five Players with Most Man Of the Match awards -----------------------------------
 
 import org.apache.spark.sql.SparkSession
 val spark=SparkSession.builder.appName("gani").getOrCreate()
@@ -10,7 +10,7 @@ val df1=df.groupBy("Player of the match").count()
 df1.sort(desc("count")).limit(5).show()
 
 
-------------- Avg first innings score of Eaden Gardens ---------------------------------------
+// ------------- Avg first innings score of Eaden Gardens ---------------------------------------
 
 import org.apache.spark.sql.SparkSession
 val spark=SparkSession.builder.appName("gani").getOrCreate()
@@ -20,7 +20,7 @@ val df1 = df.groupBy("Venue").agg(avg("First innings score").alias("Avg 1st ing 
 df1.filter(df1("Venue").like("E%")).show()
 
 
--------------- Teams with most wins and losses -----------------------------------------------
+// -------------- Teams with most wins and losses -----------------------------------------------
 
 import org.apache.spark.sql.SparkSession
 val spark=SparkSession.builder.appName("gani").getOrCreate()
@@ -30,7 +30,7 @@ val df1=df.groupBy("Match winner").count()
 df1.sort(desc("count")).show()
 
 
--------------- Teams with most ipl thropies  -------------------------------------------------
+// -------------- Teams with most ipl thropies  -------------------------------------------------
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
@@ -45,7 +45,7 @@ val df4=df3.groupBy("Match winner").count
 df4.withColumnRenamed("count", "IPL Trophies").sort(desc("IPL Trophies")).show()
 
 
----------------- No of matches placed between Chennai and Mumbai ----------------------------
+// ---------------- No of matches placed between Chennai and Mumbai ----------------------------
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
@@ -57,7 +57,7 @@ val df2=df1.filter(df1("Team1") === "Chennai Super Kings" && df1("Team2") === "M
 val df3=df1.filter(df1("Team1") === "Mumbai Indians" && df1("Team2") === "Chennai Super Kings")
 println(df3.count+df2.count)
 
------------------ Highest score and lowest score of IPL fitst & second innings ------------------
+// ----------------- Highest score and lowest score of IPL fitst & second innings ------------------
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
@@ -77,7 +77,7 @@ df2.agg(min("First innings score").alias("Lowest Score")).show()
 val df2=df1.withColumn("Second innings score", when(df1("Second innings score") ===0, 150).otherwise(df1("Second innings score")))
 df2.agg(min("Second innings score").alias("Lowest Score")).show()
 
------------------------- Most Toss winners -----------------------------------------------------
+// ------------------------ Most Toss winners -----------------------------------------------------
 
 import org.apache.spark.sql.SparkSession
 val spark=SparkSession.builder.appName("gani").getOrCreate()
@@ -86,7 +86,7 @@ val df = spark.read.option("header","True").csv("ipldata.csv")
 val df1=df.groupBy("Toss winner").count()
 df1.sort(desc("count")).show()
 
------------------------- Teams choosed first batting won ----------------------------------------
+// ------------------------ Teams choosed first batting won ----------------------------------------
 
 import org.apache.spark.sql.SparkSession
 val spark=SparkSession.builder.appName("gani").getOrCreate()
@@ -101,7 +101,7 @@ df1.count
 val df1=df.filter(df("Toss decision") === "Field").filter(df("Toss winner") !== df("Match winner"))
 df1.count
 
------------------------ Matches played by kkr ---------------------------------------------------
+// ----------------------- Matches played by kkr ---------------------------------------------------
 
 import org.apache.spark.sql.SparkSession
 val spark=SparkSession.builder.appName("gani").getOrCreate()
@@ -111,4 +111,4 @@ val df1=df.filter(df("Team1").like("Kolkata Knight Riders"))
 val df2=df.filter(df("Team2").like("Kolkata Knight Riders"))
 println(df1.count+df2.count)
 
--------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
